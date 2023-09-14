@@ -1,0 +1,59 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>글쓰기 페이지</title>
+
+    <style>
+        .class-caption {
+            width: 100px;
+        }
+
+        .class-content {
+            width: 500px;
+        }
+    </style>
+
+    <script th:inline="javascript">
+
+        function backToList(frm) {
+
+            frm.action = /*[[@{/board/list}]]*/"";
+            frm.submit();
+        }
+
+    </script>
+
+</head>
+<body>
+<h1 style="text-align: center;">글쓰기</h1>
+<form name="articleForm" method="POST" th:action="@{/board/addarticle}">
+    <table border="0" align="center">
+        <tbody>
+        <tr>
+            <td align="right" class="class-caption">글 제목</td>
+            <td colspan="2">
+                <input type="text" maxlength="100" name="i_title" class="class-content"
+                       placeholder="글의 제목을 입력해주세요!">
+            </td>
+        </tr>
+
+        <tr>
+            <td align="right" valign="top" class="class-caption"><br>글 내용 :</td>
+            <td colspan="2">
+                        <textarea rows="10" maxlength="2000" name="i_content" class="class-content"
+                                  placeholder="글의 내용을 입력해주세요!"></textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="right"></td>
+            <td colspan="2">
+                <input type="submit" value="저장" onclick="fn_modify_article(articleForm)">
+                <input type="button" value="글 목록" onclick="backToList(articleForm)">
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</form>
+</body>
+</html>

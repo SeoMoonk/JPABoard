@@ -1,8 +1,11 @@
 package com.seomoon.model.Entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +15,8 @@ import java.time.LocalDateTime;
 @Getter
 @Component
 @Setter
+@SuperBuilder
+@NoArgsConstructor
 public class Bulletin {
 
     @Id
