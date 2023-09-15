@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class BoardUserService {
@@ -39,9 +41,11 @@ public class BoardUserService {
         return password1.equals(password2);
     }
 
-    public String getByUsername(String username){
+    public BoardUser getByUsername(String username){
 
-        boardUserRepository.findByUsername(username);
+        Optional<BoardUser> ObyUsername = boardUserRepository.findByUsername(username);
+
+        return ObyUsername.orElse(null);
     }
 
 }
