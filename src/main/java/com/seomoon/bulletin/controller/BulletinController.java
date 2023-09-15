@@ -5,6 +5,7 @@ import com.seomoon.bulletin.service.BulletinService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,7 @@ public class BulletinController {
     }
 
     @GetMapping({"/add"})
+    @PreAuthorize("isAuthenticated()")
     public String writeArticle() {
 
         System.out.println("Write Mapping");
@@ -44,6 +46,7 @@ public class BulletinController {
     }
 
     @PostMapping("/addarticle")
+    @PreAuthorize("isAuthenticated()")
     public String addArticle(@RequestParam(value = "i_title") String title,
                              @RequestParam(value = "i_content") String content,
                              Principal principal) {
@@ -70,6 +73,7 @@ public class BulletinController {
     }
 
     @PostMapping("/edit")
+    @PreAuthorize("isAuthenticated()")
     public String editArticle(@RequestParam(value="articleNo") String articleNo,
                               @RequestParam(value="title") String title,
                               @RequestParam(value="content") String content,
@@ -83,6 +87,7 @@ public class BulletinController {
     }
 
     @PostMapping("/delete")
+    @PreAuthorize("isAuthenticated()")
     public String deleteArticle (@RequestParam(value="articleNo") String articleNo) {
 
         bulletinService.removeBulletin(Long.parseLong(articleNo));
@@ -91,6 +96,7 @@ public class BulletinController {
     }
 
     @PostMapping("/edit/cancel")
+    @PreAuthorize("isAuthenticated()")
     public String editCancel(@RequestParam(value="articleNo") String articleNo,
                              RedirectAttributes attr) {
 

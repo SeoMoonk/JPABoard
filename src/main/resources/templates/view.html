@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>상세 조회</title>
 
@@ -86,7 +86,7 @@
         <tr>
             <td width="150" align="center" bgcolor="#FF9933">내용</td>
             <td>
-                <textarea rows="20" cols="60" name="content" id="i_content" disabled >[[${article.content}]]</textarea>
+                <textarea rows="20" cols="60" name="content" id="i_content" disabled>[[${article.content}]]</textarea>
             </td>
         </tr>
 
@@ -99,8 +99,12 @@
 
         <tr id="tr_btn">
             <td colspan="2" align="center">
-                <input type="button" value="수정하기" onclick="fn_enable()">
-                <input type="button" value="삭제하기" onclick="fn_delete_article(articleForm)">
+                <input type="button" value="수정하기" onclick="fn_enable()"
+                       sec:authorize="isAuthenticated()"
+                       th:if="${#authentication.getPrincipal().getUsername() == article.writer.username}">
+                <input type="button" value="삭제하기" onclick="fn_delete_article(articleForm)"
+                       sec:authorize="isAuthenticated()"
+                       th:if="${#authentication.getPrincipal().getUsername() == article.writer.username}">
                 <input type="button" value="목록보기" onclick="backToList(articleForm)">
             </td>
         </tr>
