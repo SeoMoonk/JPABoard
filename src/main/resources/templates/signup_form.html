@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입 폼</title>
+</head>
+<body>
+
+<form method="POST" th:action="@{/user/signup}" th:object="${boardUserCreateForm}" >
+
+    <div th:if="${#fields.hasAnyErrors()}">
+        <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
+    </div>
+
+    <div>
+        <label for="username">사용자ID</label>
+        <input id="username" type="text" th:field="*{username}">
+    </div>
+    <div>
+        <label for="password1">비밀번호</label>
+        <input id="password1" type="password" th:field="*{password1}">
+    </div>
+    <div>
+        <label for="password2">비밀번호 확인</label>
+        <input id="password2" type="password" th:field="*{password2}">
+    </div>
+    <div>
+        <label for="email">이메일</label>
+        <input id="email" type="email" th:field="*{email}">
+    </div>
+
+    <button type="submit">가입 완료</button>
+</form>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.seomoon.boardUser.model.entity;
+package com.seomoon.boardUser.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
