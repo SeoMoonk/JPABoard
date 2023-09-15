@@ -15,8 +15,9 @@
     <script th:inline="javascript">
         function backToList(frm) {
 
-            frm.action = /*[[@{/board/list}]]*/"";
+            frm.action = /*[[@{/board/list?page=1}]]*/"";
             frm.submit();
+
         }
 
         function fn_enable() {

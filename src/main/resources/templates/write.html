@@ -2,53 +2,49 @@
 <head>
     <title>글쓰기 페이지</title>
 
-    <style>
-        .class-caption {
-            width: 100px;
-        }
-
-        .class-content {
-            width: 500px;
-        }
-    </style>
+    <!-- 데이지 UI 불러오기 -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css"/>
+    <!-- 테일윈드 불러오기 -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <script th:inline="javascript">
-
         function backToList(frm) {
 
-            frm.action = /*[[@{/board/list}]]*/"";
+            frm.action = /*[[@{/board/list?page=1}]]*/"";
             frm.submit();
         }
-
     </script>
 
 </head>
 <body>
-<h1 style="text-align: center;">글쓰기</h1>
+    <div class="flex justify-center align-center">
+        <h1 class="text-2xl">글쓰기</h1>
+    </div>
+
 <form name="articleForm" method="POST" th:action="@{/board/addarticle}">
-    <table border="0" align="center">
+    <table class="table" border="0" align="center">
         <tbody>
         <tr>
-            <td align="right" class="class-caption">글 제목</td>
-            <td colspan="2">
-                <input type="text" maxlength="100" name="i_title" class="class-content"
+            <td>글 제목</td>
+            <td class="w-full" colspan="2">
+                <input type="text" maxlength="100" name="i_title" class="input input-bordered w-full"
                        placeholder="글의 제목을 입력해주세요!">
             </td>
         </tr>
 
         <tr>
-            <td align="right" valign="top" class="class-caption"><br>글 내용 :</td>
-            <td colspan="2">
-                        <textarea rows="10" maxlength="2000" name="i_content" class="class-content"
+            <td>글 내용</td>
+            <td class="w-full" colspan="2">
+                        <textarea class="textarea textarea-bordered w-full" rows="10" maxlength="2000" name="i_content"
                                   placeholder="글의 내용을 입력해주세요!"></textarea>
             </td>
         </tr>
 
         <tr>
             <td align="right"></td>
-            <td colspan="2">
-                <input type="submit" value="저장" onclick="fn_modify_article(articleForm)">
-                <input type="button" value="글 목록" onclick="backToList(articleForm)">
+            <td class="flex justify-center align-center" colspan="2">
+                <input class="btn btn-success m-5" type="submit" value="저장" onclick="fn_modify_article(articleForm)">
+                <input class="btn btn-warning m-5" type="button" value="글 목록" onclick="backToList(articleForm)">
             </td>
         </tr>
 

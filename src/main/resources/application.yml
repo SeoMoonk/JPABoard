@@ -33,3 +33,4 @@ logging:
   level:
     org:
       hibernate: info
+      thymeleaf: off

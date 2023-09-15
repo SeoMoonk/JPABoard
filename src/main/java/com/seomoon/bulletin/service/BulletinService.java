@@ -6,6 +6,9 @@ import com.seomoon.bulletin.repository.BulletinRepository;
 import com.seomoon.bulletin.entity.Bulletin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -72,6 +75,22 @@ public class BulletinService {
     public void removeBulletin(Long bulletinNo) throws DataAccessException {
 
         bulletinRepository.deleteById(bulletinNo);
+    }
+
+    public Page<Bulletin> getPageList(int page) throws DataAccessException {
+
+        Pageable pageable = PageRequest.of(page, 5);
+        Page<Bulletin> pageData = bulletinRepository.findAll(pageable);
+
+        return pageData;
+    }
+
+    public Page<Bulletin> getFindList(String keyword) throws  DataAccessException {
+
+        Pageable pageable = PageRequest.of(1, 5);
+        Page<Bulletin> pageData = bulletinRepository.findByTitleLike("%"+keyword+"%", pageable);
+
+        return pageData;
     }
 
 }

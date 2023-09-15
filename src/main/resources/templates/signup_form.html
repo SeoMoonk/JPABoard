@@ -3,34 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입 폼</title>
+
+    <!-- 데이지 UI 불러오기 -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css"/>
+    <!-- 테일윈드 불러오기 -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="flex justify-center align-center">
 
-<form method="POST" th:action="@{/user/signup}" th:object="${boardUserCreateForm}" >
+<div class="flex justify-center align-center items-center mr-10">
+    <h1 class="text-2xl">회원가입</h1>
+</div>
 
-    <div th:if="${#fields.hasAnyErrors()}">
-        <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
+<form class="mt-20 w-80 flex justify-items-center content-center justify-center flex-col align-center" method="POST" th:action="@{/user/signup}" th:object="${boardUserCreateForm}" >
+
+    <div class="w-80 bg-red-200">
+        <div class="flex justify-center align-center" th:if="${#fields.hasAnyErrors()}">
+            <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
+        </div>
+
+        <div class="flex justify-center align-center mb-10">
+            <label for="username">사용자ID</label>
+            <input class="input input-bordered ml-10" id="username" type="text" th:field="*{username}">
+        </div>
+        <div class="flex justify-center align-center mb-10">
+            <label for="password1">비밀번호</label>
+            <input class="input input-bordered ml-10" id="password1" type="password" th:field="*{password1}">
+        </div>
+        <div class="flex justify-center align-center mb-10">
+            <label for="password2">비밀번호 확인</label>
+            <input class="input input-bordered ml-10" id="password2" type="password" th:field="*{password2}">
+        </div>
+        <div class="flex justify-center align-center mb-10">
+            <label for="email">이메일</label>
+            <input class="input input-bordered ml-10" id="email" type="email" th:field="*{email}">
+        </div>
+
+
     </div>
 
-    <div>
-        <label for="username">사용자ID</label>
-        <input id="username" type="text" th:field="*{username}">
-    </div>
-    <div>
-        <label for="password1">비밀번호</label>
-        <input id="password1" type="password" th:field="*{password1}">
-    </div>
-    <div>
-        <label for="password2">비밀번호 확인</label>
-        <input id="password2" type="password" th:field="*{password2}">
-    </div>
-    <div>
-        <label for="email">이메일</label>
-        <input id="email" type="email" th:field="*{email}">
-    </div>
 
-    <button type="submit">가입 완료</button>
-    <a th:href="@{/user/login}">가입 취소</a>
+    <button class="btn btn-success" type="submit">가입 완료</button>
+    <a class="btn btn-warning" th:href="@{/user/login}">가입 취소</a>
 </form>
 
 </body>

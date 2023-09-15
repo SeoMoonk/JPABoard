@@ -5,38 +5,40 @@
     <title>글 목록</title>
 
     <style>
-        .cls2 {
 
-            text-align: center;
-            font-size: 30px;
-            display: block;
-
-        }
-
-        .cls1 {
-            text-decoration: none;
-        }
     </style>
+
+    <!-- 데이지 UI 불러오기 -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css"/>
+    <!-- 테일윈드 불러오기 -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 <body>
-    <div>
-        <a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-        <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
-        <a th:href="@{/user/signup}">회원가입</a>
+<div style="display: flex; justify-content: center; align-items: center; margin: 30px;" >
+    <a class="btn btn-primary" sec:authorize="isAnonymous()" th:href="@{/user/login}" style="margin: 10px">로그인</a>
+    <a class="btn btn-primary" sec:authorize="isAuthenticated()" th:href="@{/user/logout}" style="margin: 10px">로그아웃</a>
+    <a class="btn btn-warning" th:href="@{/user/signup}">회원가입</a>
+
+    <div style="margin: 10px">
+        <form method="POST" th:action="@{/board/search}">
+            <input class="input input-bordered input-primary" type="text" name="keyword" maxlength="10">
+            <button class="btn btn-info"type="submit">검색</button>
+        </form>
     </div>
+</div>
 
-    <table align="center" border="1" width="80%">
-        <thead>
-        <tr height="30" align="center" bgcolor="lightgreen">
-            <th>글번호</th>
-            <th>작성자</th>
-            <th>제목</th>
-            <th>작성일</th>
-        </tr>
-        </thead>
+<table class="table" align="center" border="1" width="80%">
+    <thead>
+    <tr height="30" align="center" bgcolor="lightgreen">
+        <th>글번호</th>
+        <th>작성자</th>
+        <th>제목</th>
+        <th>작성일</th>
+    </tr>
+    </thead>
 
-        <tbody th:if="${#strings.isEmpty(dataList)}">
+    <tbody th:if="${#strings.isEmpty(pagingDataList)}">
         <tr height="30">
             <td colspan="4">
                 <p align="center">
@@ -44,12 +46,11 @@
                 </p>
             </td>
         </tr>
-        </tbody>
+    </tbody>
 
-
-        <tbody th:unless="${#strings.isEmpty(dataList)}">
-        <tr height="30" align="center" th:each="article:${dataList}">
-            <td width="5%">[[${articleStat.count}]]</td>
+    <tbody th:unless="${#strings.isEmpty(pagingDataList)}">
+        <tr height="30" align="center" th:each="article:${pagingDataList}">
+            <td width="5%">[[${articleStat.count + pagingDataList.number * 5}]]</td>
             <td width="10%">[[${article.writer.username}]]</td>
             <td align="left" width="35%">
                 <a class="cls1" th:href="@{/board/view(no=${article.id})}">
@@ -58,11 +59,36 @@
             </td>
             <td width="5%" th:text="${#strings.substring(article.writeDate, 0, 10)}"></td>
         </tr>
-        </tbody>
+    </tbody>
+</table>
 
-    </table>
-    <div align="center" style="margin-top: 10px;">
-        <a th:href="@{/board/add}" class="cls1"><span class="cls2">글 쓰기</span></a>
-    </div>
+<div th:if="${!pagingDataList.isEmpty()}" style="align-items: center; display: flex; justify-content: center;">
+
+        <!-- TODO th:classappend="${paging.hasPrevious} ? 'disabled'" (비활성화 처리) -->
+        <span th:classappend="${pagingDataList.hasPrevious} ? 'disabled'"  style="margin: 10px;">
+            <a class="btn btn-info" th:href="@{|?page=${pagingDataList.number}|}">
+                <span>이전</span>
+            </a>
+        </span>
+
+        <!-- TODO  (강조 효과) -->
+        <span th:each="page: ${#numbers.sequence(1, pagingDataList.totalPages)}"
+          th:if="${page >= pagingDataList.number-5 and page <= pagingDataList.number+5}" style="margin: 10px;"
+              th:classappend="${page == pagingDataList.number} ? 'active'">
+            <a class="btn btn-outline btn-success" th:text="${page}" th:href="@{|?page=${page}|}"></a>
+        </span>
+
+        <!-- TODO th:classappend="${!paging.hasNext} ? 'disabled'" (비활성화 처리)-->
+        <span th:classappend="${!pagingDataList.hasNext} ? 'disabled'" style="margin: 10px;">
+            <a class="btn btn-info" th:href="@{|?page=${pagingDataList.number+2}|}">
+                <span>다음</span>
+            </a>
+        </span>
+</div>
+
+
+<div align="center" style="margin-top: 10px;">
+    <a th:href="@{/board/add}" class="btn btn-neutral"><span class="cls2">글 쓰기</span></a>
+</div>
 </body>
 </html>

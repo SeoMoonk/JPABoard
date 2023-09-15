@@ -5,6 +5,7 @@ import com.seomoon.bulletin.service.BulletinService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,13 +26,11 @@ public class BulletinController {
 
     Logger logger = LoggerFactory.getLogger("com.seomoon.controller.BoardController");
 
-    @RequestMapping({"/list", "/"})
-    public String getArticleList(Model model) {
+    @RequestMapping("/list")
+    public String getArticleList(Model model, @RequestParam(value="page", defaultValue="1") int page) {
 
-        System.out.println("List Mapping");
-
-        List<Bulletin> articleList = bulletinService.getBulletinList();
-        model.addAttribute("dataList", articleList);
+        Page<Bulletin> pagingDataList = bulletinService.getPageList(page-1);
+        model.addAttribute("pagingDataList", pagingDataList);
 
         return "list";
     }
@@ -117,5 +116,18 @@ public class BulletinController {
         return map;
     }
 
+    @PostMapping("/search")
+    public String getSearchList(@RequestParam(value="keyword") String keyword,
+                                Model model) {
+
+        System.out.println("search mapping");
+
+        Page<Bulletin> findList = bulletinService.getFindList(keyword);
+
+        model.addAttribute("pagingDataList", findList);
+
+        //fixme
+        return "redirect:/board/list";
+    }
 
 }
