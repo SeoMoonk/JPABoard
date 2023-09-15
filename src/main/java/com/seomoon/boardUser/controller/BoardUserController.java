@@ -64,5 +64,13 @@ public class BoardUserController {
         return "login_form";
     }
 
+//    @GetMapping("/logout")
+//    public String logout() {
+//
+//        //TODO 로그아웃
+//
+//        return "login_form";
+//    }
+
 
 }
