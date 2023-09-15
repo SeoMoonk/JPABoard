@@ -39,4 +39,9 @@ public class BoardUserService {
         return password1.equals(password2);
     }
 
+    public String getByUsername(String username){
+
+        boardUserRepository.findByUsername(username);
+    }
+
 }

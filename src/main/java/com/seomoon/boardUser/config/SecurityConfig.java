@@ -17,13 +17,21 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests((authorizeHttpRequest) ->
-                        authorizeHttpRequest.requestMatchers(new AntPathRequestMatcher("/**"))
+        http
+                .authorizeHttpRequests(
+                        (authorizeHttpRequest) -> authorizeHttpRequest
+                                .requestMatchers(new AntPathRequestMatcher("/**"))
                                 .permitAll())
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .csrf(csrf ->
-                        csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/**"))
+                .sessionManagement(
+                        session -> session
+                                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                .csrf(
+                        csrf -> csrf
+                                .ignoringRequestMatchers(new AntPathRequestMatcher("/**")))
+                .formLogin(
+                        (formLogin) -> formLogin
+                                .loginPage("/user/login")
+                                .defaultSuccessUrl("/board/list")
                 );
 
         return http.build();

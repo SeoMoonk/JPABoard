@@ -56,5 +56,13 @@ public class BoardUserController {
         return "redirect:/board/list";
     }
 
+    @GetMapping("/login")
+    public String login() {
+
+
+
+        return "login_form";
+    }
+
 
 }
