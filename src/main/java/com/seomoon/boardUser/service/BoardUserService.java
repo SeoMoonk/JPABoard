@@ -45,7 +45,12 @@ public class BoardUserService {
 
         Optional<BoardUser> ObyUsername = boardUserRepository.findByUsername(username);
 
-        return ObyUsername.orElse(null);
+        if(ObyUsername.isPresent()){
+            return ObyUsername.get();
+        }else{
+            throw new DataNotFoundException();
+        }
+
     }
 
 }

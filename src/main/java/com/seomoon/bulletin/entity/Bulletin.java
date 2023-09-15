@@ -1,5 +1,6 @@
 package com.seomoon.bulletin.entity;
 
+import com.seomoon.boardUser.model.entity.BoardUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class Bulletin {
     @CreationTimestamp
     private LocalDateTime writeDate;
 
-    private String writer;
+    @ManyToOne
+    private BoardUser writer;
 
 }

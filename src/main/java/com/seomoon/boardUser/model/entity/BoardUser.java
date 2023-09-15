@@ -28,6 +28,4 @@ public class BoardUser {
     @Column(unique = true)
     private String email;
 
-
-
 }

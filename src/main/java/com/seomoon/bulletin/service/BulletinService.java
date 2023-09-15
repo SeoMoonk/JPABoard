@@ -1,10 +1,13 @@
 package com.seomoon.bulletin.service;
 
+import com.seomoon.boardUser.model.entity.BoardUser;
+import com.seomoon.boardUser.service.BoardUserService;
 import com.seomoon.bulletin.repository.BulletinRepository;
 import com.seomoon.bulletin.entity.Bulletin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.Optional;
 public class BulletinService {
 
     private final BulletinRepository bulletinRepository;
+    private final BoardUserService boardUserService;
 
     public List<Bulletin> getBulletinList() {
 
@@ -30,10 +34,12 @@ public class BulletinService {
 
     public Bulletin generateBulletin(String title, String content, String writer) throws DataAccessException {
 
+        BoardUser byUsername = boardUserService.getByUsername(writer);
+
         Bulletin newBulletin = Bulletin.builder()
                 .title(title)
                 .content(content)
-                .writer(writer)
+                .writer(byUsername)
                 .build();
 
         bulletinRepository.save(newBulletin);

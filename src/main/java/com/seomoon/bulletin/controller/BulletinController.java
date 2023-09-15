@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,10 +45,12 @@ public class BulletinController {
 
     @PostMapping("/addarticle")
     public String addArticle(@RequestParam(value = "i_title") String title,
-                             @RequestParam(value = "i_content") String content) {
+                             @RequestParam(value = "i_content") String content,
+                             Principal principal) {
 
+        String username = principal.getName();
 
-         bulletinService.generateBulletin(title, content, "ADMIN");
+        bulletinService.generateBulletin(title, content, username);
 
         return "redirect:list";
     }
