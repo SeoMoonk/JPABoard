@@ -1,8 +1,7 @@
-package com.seomoon.repository;
+package com.seomoon.bulletin.repository;
 
-import com.seomoon.model.Entity.Bulletin;
+import com.seomoon.bulletin.entity.Bulletin;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 public interface BulletinRepository extends JpaRepository<Bulletin, Long> {
 

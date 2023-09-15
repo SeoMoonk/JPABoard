@@ -1,7 +1,7 @@
-package com.seomoon.controller;
+package com.seomoon.bulletin.controller;
 
-import com.seomoon.model.Entity.Bulletin;
-import com.seomoon.service.BulletinService;
+import com.seomoon.bulletin.entity.Bulletin;
+import com.seomoon.bulletin.service.BulletinService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

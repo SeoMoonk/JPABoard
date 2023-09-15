@@ -1,7 +1,7 @@
-package com.seomoon.service;
+package com.seomoon.bulletin.service;
 
-import com.seomoon.model.Entity.Bulletin;
-import com.seomoon.repository.BulletinRepository;
+import com.seomoon.bulletin.repository.BulletinRepository;
+import com.seomoon.bulletin.entity.Bulletin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Sort;
