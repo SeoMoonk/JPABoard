@@ -1,6 +1,6 @@
 package com.seomoon.boardUser.service;
 
-import com.seomoon.boardUser.entity.BoardUser;
+import com.seomoon.boardUser.model.entity.BoardUser;
 import com.seomoon.boardUser.repository.BoardUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

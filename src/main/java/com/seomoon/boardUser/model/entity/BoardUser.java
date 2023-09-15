@@ -1,4 +1,4 @@
-package com.seomoon.boardUser.entity;
+package com.seomoon.boardUser.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
