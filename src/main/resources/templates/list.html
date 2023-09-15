@@ -50,7 +50,7 @@
                     <span style="padding-right: 30px;">[[${article.title}]]</span>
                 </a>
             </td>
-            <td width="5%">[[${article.writeDate}]]</td>
+            <td width="5%" th:text="${#strings.substring(article.writeDate, 0, 10)}"></td>
         </tr>
     </tbody>
 

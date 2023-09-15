@@ -57,7 +57,7 @@ public class BulletinController {
 
         logger.debug("조회한 게시글 ==========> " + articleNo);
 
-//        파라미터는 무조건 String으로 넘어오기 때문에, String -> Integer 변환을 하여 사용해야 한다?
+        //TODO 파라미터는 무조건 String으로 넘어오기 때문에, String -> Integer 변환을 하여 사용해야 한다? => 이제 얘기가 다름.
 
         Bulletin bulletinByNo = bulletinService.getBulletinByNo(Long.parseLong(articleNo));
 
@@ -71,10 +71,6 @@ public class BulletinController {
                               @RequestParam(value="title") String title,
                               @RequestParam(value="content") String content,
                               RedirectAttributes attr) {
-
-        System.out.println(articleNo);
-        System.out.println(title);
-        System.out.println(content);
 
         bulletinService.modifyBulletin(articleNo, title, content);
 
