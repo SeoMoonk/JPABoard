@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<!-- 데이지 UI 불러오기 -->
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css"/>
+<!-- 테일윈드 불러오기 -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>분류기</title>
+
+    <script th:inline="javascript">
+        function loadImg(e) {
+            const img_tag = document.querySelector('.fImg');
+            const file = e.currentTarget.files[0];
+            img_tag.src = URL.createObjectURL(file);
+            img_tag.style.visibility = 'visible';
+        }
+
+        async function sendImg(frm) {
+
+            let formData = new FormData(frm);
+            const options = {
+                method: "post",
+                body: formData,
+            }
+            try {
+                let response = await fetch(/*[[@{/rest/upload}]]*/ '', options);
+                let catdog = await response.json();
+                let result_tag = document.querySelector('#result');
+
+                result_tag.value = catdog.catordog;
+            } catch(err) {
+                alert(err);
+            }
+
+        }
+    </script>
+
+</head>
+<body>
+    <br>
+    <form method="POST" id="form_file" action="" enctype="multipart/form-data">
+        <div style="vertical-align: top;">
+            <div>
+                <img width="150" height="150" class="fImg" src="" alt="DogCatImg" style="visibility: hidden;" >
+            </div>
+            <div>
+                <input type="text" class="input input-bordered" id="result" value="결과값">
+                <input type="file" class="file-input file-input-bordered" name="uploadFile" onchange="loadImg(event)">
+                <input type="button" class="btn btn-outline btn-neutral" value="보내기" onchange="sendImg(form_file)">
+            </div>
+        </div>
+
+    </form>
+</body>
+</html>
